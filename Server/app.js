@@ -1,9 +1,12 @@
+import { config } from 'dotenv';
+config();
 import cookieParser from 'cookie-parser';
-
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import connectToDB from './configs/dbConnection.js';
 const app = express();
+connectToDB();
 
 // Middlewares
 // Built-In
@@ -23,7 +26,7 @@ app.use(cookieParser());
 app.get('/ping', (req, res) => {
     res.send('Pong');
   });
-  
+
 app.all('*', (req, res) => {
     res.status(404).send('OOPS!!! 404 Page Not Found');
   });
