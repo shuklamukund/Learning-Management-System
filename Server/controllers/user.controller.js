@@ -2,6 +2,8 @@ import AppError from "../utils/error.util.js";
 import User from '../models/user.model.js'
 import cloudinary from 'cloudinary';
 import fs from 'fs/promises';
+import sendEmail from "../utils/sendEmail.js";
+
 const cookieOptions = {
     secure:true,
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
@@ -152,9 +154,79 @@ const getProfile=async(req,res,next)=>{
   });
 };
 
+const forgotPassword=async(req,res,next)=>{
+  // Extracting email from request body
+  const { email } = req.body;
+
+  // If no email send email required message
+  if (!email) {
+    return next(new AppError('Email is required', 400));
+  }
+
+  // Finding the user via email
+  const user = await User.findOne({ email });
+
+  // If no email found send the message email not found
+  if (!user) {
+    return next(new AppError('Email not registered', 400));
+  }
+
+  // Generating the reset token via the method we have in user model
+  const resetToken = await user.generatePasswordResetToken();
+
+  // Saving the forgotPassword* to DB
+  await user.save();
+
+  // constructing a url to send the correct data
+  /**HERE
+   * req.protocol will send if http or https
+   * req.get('host') will get the hostname
+   * the rest is the route that we will create to verify if token is correct or not
+   */
+  // const resetPasswordUrl = `${req.protocol}://${req.get(
+  //   "host"
+  // )}/api/v1/user/reset/${resetToken}`;
+  const resetPasswordUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+
+  const subject = 'Reset Password';
+  const message = `You can reset your password by clicking <a href=${resetPasswordUrl} target="_blank">Reset your password</a>\nIf the above link does not work for some reason then copy paste this link in new tab ${resetPasswordUrl}.\n If you have not requested this, kindly ignore.`;
+
+  try {
+    await sendEmail(email, subject, message);
+
+    // If email sent successfully send the success response
+    res.status(200).json({
+      success: true,
+      message: `Reset password token has been sent to ${email} successfully`,
+    });
+  } catch (error) {
+    // If some error happened we need to clear the forgotPassword* fields in our DB
+    user.forgotPasswordToken = undefined;
+    user.forgotPasswordExpiry = undefined;
+
+    await user.save();
+
+    return next(
+      new AppError(
+        error.message || 'Something went wrong, please try again.',
+        500
+      )
+    );
+  }
+
+}
+
+const resetPassword=()=>{
+
+
+
+}
+
 export {
     register,
     login,
     logout,
-    getProfile
+    getProfile,
+    forgotPassword,
+    resetPassword
 }
