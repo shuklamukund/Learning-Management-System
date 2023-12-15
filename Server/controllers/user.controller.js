@@ -3,6 +3,7 @@ import User from '../models/user.model.js'
 import cloudinary from 'cloudinary';
 import fs from 'fs/promises';
 import sendEmail from "../utils/sendEmail.js";
+import crypto from 'crypto';
 
 const cookieOptions = {
     secure:true,

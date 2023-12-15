@@ -29,7 +29,7 @@ app.get('/ping', (req, res) => {
 
 
   //routes setup
-  import userRoutes from './routes/user.routes.js'
+import userRoutes from './routes/user.routes.js'
 import errorMiddleware from './middlewares/error.middleware.js';
   app.use('/api/v1/user',userRoutes);
 app.all('*', (req, res) => {
