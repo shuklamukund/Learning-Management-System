@@ -27,6 +27,11 @@ app.get('/ping', (req, res) => {
     res.send('Pong');
   });
 
+
+  //routes setup
+  import userRoutes from './routes/user.routes.js'
+import errorMiddleware from './middlewares/error.middleware.js';
+  app.use('/api/v1/user',userRoutes);
 app.all('*', (req, res) => {
     res.status(404).send('OOPS!!! 404 Page Not Found');
   });
@@ -35,5 +40,7 @@ app.all('*', (req, res) => {
 app.get('/ping', (req, res) => {
   res.send('Pong');
 });
+// Custom error handling middleware
+app.use(errorMiddleware);
 
 export default app;
