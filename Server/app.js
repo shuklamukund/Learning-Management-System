@@ -31,7 +31,9 @@ app.get('/ping', (req, res) => {
   //routes setup
 import userRoutes from './routes/user.routes.js'
 import errorMiddleware from './middlewares/error.middleware.js';
-  app.use('/api/v1/user',userRoutes);
+import courseRoutes from './routes/course.routes.js'
+app.use('/api/v1/user',userRoutes);
+app.use('/api/v1/courses',courseRoutes);
 app.all('*', (req, res) => {
     res.status(404).send('OOPS!!! 404 Page Not Found');
   });
