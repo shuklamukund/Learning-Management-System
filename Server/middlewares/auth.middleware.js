@@ -36,7 +36,16 @@ const authorizeRoles = (...roles) =>
     next();
 }
 
+const authorizeSubscribers =async(req,res, next) => {
+  // If user is not admin or does not have an active subscription then error else pass
+  if (req.user.role !== "ADMIN" && req.user.subscription.status !== "active") {
+    return next(new AppError("Please subscribe to access this route.", 403));
+  }
+
+  next();
+}
 export {
   isLoggedIn,
-  authorizeRoles
+  authorizeRoles,
+  authorizeSubscribers
 };
