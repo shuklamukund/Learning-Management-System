@@ -97,6 +97,8 @@ const login=async (req,res,next)=>{
   // Destructuring the necessary data from req object
   const { email, password } = req.body;
 
+  console.log('Email is>>>',email);
+
   // Check if the data is there or not, if not throw error message
   if (!email || !password) {
     return next(new AppError('Email and Password are required', 400));

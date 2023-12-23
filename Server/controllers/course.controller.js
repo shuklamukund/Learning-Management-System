@@ -48,6 +48,8 @@ const createCourse=async(req,res,next)=>{
         secure_url:'dummy',
       },
     });
+
+    // console.log('Courses>>>>',course);
   
     if (!course) {
       return next(
