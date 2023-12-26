@@ -4,6 +4,7 @@ import { Link,useNavigate } from "react-router-dom";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Footer from "../Components/Footer";
 import {useDispatch,useSelector} from 'react-redux';
+import { logout } from "../Redux/Slices/AuthSlice";
 
 function HomeLayout({children}) {
  
@@ -36,11 +37,11 @@ function HomeLayout({children}) {
     const handleLogout = async (event) => {
       event.preventDefault();
   
-      // calling logout action
-     // const res = await dispatch(logout());
+     // calling logout action
+     const res = await dispatch(logout());
   
-      // redirect to home page if true
-      //if (res?.payload?.success)
+     // redirect to home page if true
+      if (res?.payload?.success)
        navigate("/");
     };
   
