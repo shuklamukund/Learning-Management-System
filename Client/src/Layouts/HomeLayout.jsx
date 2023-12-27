@@ -87,7 +87,7 @@ function HomeLayout({children}) {
             </li>
 
             <li>
-              <Link to={"/denied"}>denied</Link>
+              <Link to={"/contact"}>Contact Us</Link>
             </li>
 
             <li>
