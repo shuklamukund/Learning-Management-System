@@ -62,7 +62,7 @@ function Contact(){
           onSubmit={handleFormSubmit}
           className="flex flex-col items-center justify-center gap-2 p-5 rounded-md text-white shadow-[0_0_10px_black] w-[22rem]"
         >
-          <h1 className="text-3xl font-semibold">Contact Form</h1>
+          <h1 className="text-3xl text-slate-700 font-semibold">Contact Form</h1>
           <div className="flex flex-col w-full gap-1">
             <label className="text-xl font-semibold" htmlFor="name">
               Name
