@@ -1,5 +1,5 @@
 import AppError from "../utils/error.util.js";
-import User from '../models/user.model.js'
+import User from '../models/user.model.js';
 import cloudinary from 'cloudinary';
 import fs from 'fs/promises';
 import sendEmail from "../utils/sendEmail.js";
