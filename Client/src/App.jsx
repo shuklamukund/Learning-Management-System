@@ -27,9 +27,9 @@ function App() {
        <Route path='/contact' element={<Contact/>}></Route>
        <Route path='/denied' element={<Denied/>}></Route>
        <Route path='/course/description' element={<CourseDescription/>}></Route>
-       {/* <Routes element={<RequireAuth allowedRoles={['ADMIN']}/>}>
+       <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
        <Route path='/course/create' element={<CreateCourse/>}/>
-       </Routes> */}
+       </Route>
        
        <Route path='*' element={<NotFound/>}></Route>
 
