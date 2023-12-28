@@ -49,7 +49,7 @@ const createCourse=async(req,res,next)=>{
       },
     });
 
-    // console.log('Courses>>>>',course);
+     console.log('Course>>>>',course);
   
     if (!course) {
       return next(
