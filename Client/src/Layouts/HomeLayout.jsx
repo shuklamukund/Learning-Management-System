@@ -38,7 +38,9 @@ function HomeLayout({children}) {
       event.preventDefault();
   
      // calling logout action
+    
      const res = await dispatch(logout());
+     
   
      // redirect to home page if true
       if (res?.payload?.success)

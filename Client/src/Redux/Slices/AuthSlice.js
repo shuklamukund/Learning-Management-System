@@ -9,6 +9,8 @@ const initialState={
 
 // function to handle signup
 export const createAccount = createAsyncThunk("/auth/signup", async (data) => {
+
+  console.log('Data is>>',data);
     try {
       let res = axiosInstance.post("user/register", data);
   
@@ -52,7 +54,7 @@ export const login = createAsyncThunk("auth/login", async (data) => {
 // function to handle logout
 export const logout = createAsyncThunk("auth/logout", async () => {
     try {
-      let res = axiosInstance.post("user/logout");
+      let res = axiosInstance.get("user/logout");
   
       await toast.promise(res, {
         loading: "Loading...",

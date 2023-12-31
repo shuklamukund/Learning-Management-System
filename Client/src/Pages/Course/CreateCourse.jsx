@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
 import HomeLayout from "../../Layouts/HomeLayout";
 import { createNewCourse } from "../../Redux/Slices/CourseSlice";
 import { AiOutlineArrowLeft } from "react-icons/ai";
@@ -67,8 +67,16 @@ function CreateCourse(){
         return;
       }
 
+      let formData = new FormData();
+      formData.append("title", userInput.title);
+      formData.append("description", userInput.description);
+      formData.append("category", userInput.category);
+      formData.append("createdBy", userInput.createdBy);
+      formData.append("thumbnail", userInput.thumbnail);
+
+
       // calling the api
-     const res = await dispatch(createNewCourse(userInput));
+     const res = await dispatch(createNewCourse(formData));
      if(res?.payload?.success){
         setUserInput({
             title: "",
