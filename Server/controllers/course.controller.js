@@ -32,7 +32,11 @@ const getLecturesByCourseId=async(req,res,next)=>{
 }
 
 const createCourse=async(req,res,next)=>{
+  
     const { title, description, category, createdBy } = req.body;
+
+    console.log('title>>>',title);
+
 
     if (!title || !description || !category || !createdBy) {
       return next(new AppError('All fields are required', 400));

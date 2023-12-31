@@ -26,9 +26,9 @@ const isLoggedIn=async(req,res,next)=>{
 }
 
 // Middleware to check if user is admin or not
-const authorizeRoles = (...roles) =>
+const authorizeRoles = (...role) =>
   async (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
+    if (!role.includes(req.user.role)) {
       return next(
         new AppError("You do not have permission to view this route", 403)
       );
