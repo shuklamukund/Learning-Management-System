@@ -7,7 +7,7 @@ const isLoggedIn=async(req,res,next)=>{
 
     if(!token){
         return next(new AppError('unauthenticated,please login again'),401)
-
+    }
           // Decoding the token using jwt package verify method
   const decoded = await jwt.verify(token, process.env.JWT_SECRET);
 
@@ -25,7 +25,7 @@ console.log('req.user>after',req.user);
   next();
 };
     
-}
+
 
 // Middleware to check if user is admin or not
 const authorizeRoles = (...role) =>

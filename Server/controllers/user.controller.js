@@ -319,7 +319,7 @@ const updateUser=async(req,res,next)=>{
   // Destructuring the necessary data from the req object
   const { fullName } = req.body;
 
-  const { id } = req.user.id;
+  const { id } = req.user;
 
   const user = await User.findById(id);
 
