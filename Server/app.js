@@ -13,12 +13,14 @@ connectToDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Third-Party
-app.use(
-  cors({
-    origin: [process.env.FRONTEND_URL],
-    credentials: true,
-  })
-);
+const corsOption={
+  origin: [process.env.FRONTEND_URL],
+  credentials: true,
+  methods:['POST','GET','PUT','DELETE'],
+  
+}
+app.use(cors(corsOption));
+  
 app.use(morgan('dev'));
 app.use(cookieParser());
 

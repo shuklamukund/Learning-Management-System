@@ -13,6 +13,7 @@ const cookieOptions = {
   
 const register=async(req,res,next)=>{
   // Destructuring the necessary data from req object
+  //console.log('req comes',req.body);
   const { fullName, email, password } = req.body;
 
   // Check if the data is there or not, if not throw error message
@@ -317,6 +318,7 @@ const changePassword=async(req,res,next)=>{
 const updateUser=async(req,res,next)=>{
   // Destructuring the necessary data from the req object
   const { fullName } = req.body;
+
   const { id } = req.user.id;
 
   const user = await User.findById(id);

@@ -33,6 +33,7 @@ const getLecturesByCourseId=async(req,res,next)=>{
 
 const createCourse=async(req,res,next)=>{
   
+  console.log('req body',req.body);
     const { title, description, category, createdBy } = req.body;
 
     console.log('title>>>',title);

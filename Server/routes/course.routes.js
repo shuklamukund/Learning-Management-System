@@ -12,6 +12,7 @@ router
 .delete(isLoggedIn, authorizeRoles('ADMIN'), removeLectureFromCourse);
 
 
+
 router
 .route('/:id')
 .get(isLoggedIn,getLecturesByCourseId)

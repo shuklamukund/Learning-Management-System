@@ -17,7 +17,9 @@ const isLoggedIn=async(req,res,next)=>{
   }
 
   // If all good store the id in req object, here we are modifying the request object and adding a custom field user in it
+  console.log('req.user>before>>',req.user);
   req.user = decoded;
+console.log('req.user>after',req.user);
 
   // Do not forget to call the next other wise the flow of execution will not be passed further
   next();
