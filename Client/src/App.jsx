@@ -21,6 +21,7 @@ import DisplayLectures from './Pages/Dashboard/Displaylectures'
 import AddLecture from './Pages/Dashboard/AddLecture'
 import ForgetPassword from './Pages/Password/ForgetPassword'
 import ResetPassword from './Pages/Password/ResetPassword'
+import ChangePassword from './Pages/Password/ChangePassword'
 
 function App() {
  
@@ -37,6 +38,7 @@ function App() {
        <Route path='/denied' element={<Denied/>}></Route>
        <Route path="/forgetpassword" element={<ForgetPassword />} />
         <Route path="/reset-password/:resetToken" element={<ResetPassword />} />
+        <Route path="/change-password" element={<ChangePassword/>}/>
 
 
 

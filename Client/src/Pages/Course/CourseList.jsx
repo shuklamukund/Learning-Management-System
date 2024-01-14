@@ -7,7 +7,7 @@ import { getAllCourses } from '../../Redux/Slices/CourseSlice';
 function CourseList(){
   const dispatch = useDispatch();
   const { courseData } = useSelector((state) => state.course);
-
+console.log('CourseData>>',courseData);
   useEffect(() => {
     (async () => {
       await dispatch(getAllCourses());

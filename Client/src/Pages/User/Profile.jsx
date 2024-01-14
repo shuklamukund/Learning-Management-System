@@ -54,7 +54,7 @@ function Profile(){
               to={
                 userData?.email === "test@gmail.com"
                   ? "/denied"
-                  : "/changepassword"
+                  : "/change-password"
               }
               className="w-1/2 bg-yellow-600 hover:bg-yellow-700 transition-all ease-in-out duration-300 rounded-sm py-2 font-semibold cursor-pointer text-center"
             >
