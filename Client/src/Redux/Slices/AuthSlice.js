@@ -14,6 +14,7 @@ export const createAccount = createAsyncThunk("/auth/signup", async (data) => {
     try {
       let res = axiosInstance.post("user/register", data);
   
+      console.log(res);
       toast.promise(res, {
         loading: "Wait! Creating your account",
         success: (data) => {
@@ -24,11 +25,14 @@ export const createAccount = createAsyncThunk("/auth/signup", async (data) => {
   
       // getting response resolved here
       res = await res;
+      console.log('res data',res.data);
       return res.data;
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
   });
+
+  
 
 // function to handle login
 export const login = createAsyncThunk("auth/login", async (data) => {
@@ -78,7 +82,7 @@ export const updateProfile = createAsyncThunk(
   "/user/update/profile",
   async (data) => {
     try {
-      let res = axiosInstance.put('user/update', data);
+      let res = axiosInstance.put("user/update", data);
 
       await toast.promise(res, {
         loading: "Updating...",
@@ -103,6 +107,53 @@ export const getUserData = createAsyncThunk("/user/details", async () => {
     return await res?.data;
   } catch (error) {
     toast.error(error.message);
+  }
+});
+
+// function to handle forget password
+export const forgetPassword = createAsyncThunk(
+  "auth/forgetPassword",
+  async (email) => {
+    try {
+      console.log('Email sent is>',email);
+      let res = axiosInstance.post("/user/reset", { email });
+
+      await toast.promise(res, {
+        loading: "Loading...",
+        success: (data) => {
+          return data?.data?.message;
+        },
+        error: "Failed to send verification email",
+      });
+
+      // getting response resolved here
+      res = await res;
+      return res.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
+// function to reset the password
+export const resetPassword = createAsyncThunk("/user/reset", async (data) => {
+  try {
+    let res = axiosInstance.post(`/user/reset/${data.resetToken}`, {
+      password: data.password,
+    });
+
+    toast.promise(res, {
+      loading: "Resetting...",
+      success: (data) => {
+        return data?.data?.message;
+      },
+      error: "Failed to reset password",
+    });
+    // getting response resolved here
+    res = await res;
+    return res.data;
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
   }
 });
 

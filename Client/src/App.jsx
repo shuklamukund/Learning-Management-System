@@ -19,6 +19,8 @@ import CheckoutSuccess from './Pages/Payment/CheckoutSuccess'
 import CheckoutFail from './Pages/Payment/CheckoutFail'
 import DisplayLectures from './Pages/Dashboard/Displaylectures'
 import AddLecture from './Pages/Dashboard/AddLecture'
+import ForgetPassword from './Pages/Password/ForgetPassword'
+import ResetPassword from './Pages/Password/ResetPassword'
 
 function App() {
  
@@ -33,6 +35,11 @@ function App() {
        <Route path='/courses' element={<CourseList/>}></Route>
        <Route path='/contact' element={<Contact/>}></Route>
        <Route path='/denied' element={<Denied/>}></Route>
+       <Route path="/forgetpassword" element={<ForgetPassword />} />
+        <Route path="/reset-password/:resetToken" element={<ResetPassword />} />
+
+
+
        <Route path='/course/description' element={<CourseDescription/>}></Route>
        <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
        <Route path='/course/create' element={<CreateCourse/>}/>
