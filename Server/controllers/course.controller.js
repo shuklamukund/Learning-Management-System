@@ -2,6 +2,7 @@ import Course from '../models/course.model.js'
 import AppError from '../utils/error.util.js';
 import cloudinary from 'cloudinary';
 import fs from 'fs/promises';
+import path from 'path';
 const getAllCourses=async(req,res,next)=>{
     
         // Find all the courses without lectures
@@ -175,8 +176,11 @@ const addLectureToCourseById=async(req,res,next)=>{
   
     // Run only if user sends a file
     if (req.file) {
+      console.log('req.file>>',req.file);
       try {
+        console.log('In process');
         const result = await cloudinary.v2.uploader.upload(req.file.path, {
+          resource_type:"video",
           folder: 'lms', // Save files in a folder named lms
           
         });
@@ -187,11 +191,13 @@ const addLectureToCourseById=async(req,res,next)=>{
           lectureData.lecture.public_id = result.public_id;
           lectureData.lecture.secure_url = result.secure_url;
         }
-  
+        
         // After successful upload remove the file from local storage
         fs.rm(`uploads/${req.file.filename}`);
+        console.log('Process ends');
       } catch (error) {
         // Empty the uploads directory without deleting the uploads directory
+        console.log('Error>>',error);
         for (const file of await fs.readdir('uploads/')) {
           await fs.unlink(path.join('uploads/', file));
         }
