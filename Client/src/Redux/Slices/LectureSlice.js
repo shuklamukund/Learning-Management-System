@@ -31,6 +31,7 @@ export const getCourseLecture = createAsyncThunk(
 export const addCourseLecture = createAsyncThunk(
   "/course/lecture/add",
   async (data) => {
+    console.log('Data>',data);
     const formData = new FormData();
     formData.append("lecture", data.lecture);
     formData.append("title", data.title);
@@ -46,9 +47,11 @@ export const addCourseLecture = createAsyncThunk(
       });
 
       const response = await res;
+      console.log('response',response.data);
 
       return response.data;
     } catch (error) {
+      console.log('Error while uploading',error?.response?.data?.message);
       toast.error(error?.response?.data?.message);
     }
   }

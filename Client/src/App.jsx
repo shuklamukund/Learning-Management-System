@@ -45,6 +45,7 @@ function App() {
        <Route path='/course/description' element={<CourseDescription/>}></Route>
        <Route element={<RequireAuth allowedRoles={['ADMIN']}/>}>
        <Route path='/course/create' element={<CreateCourse/>}/>
+       <Route path='/course/addlecture' element={<AddLecture/>}/>
        </Route>
 
        <Route element={<RequireAuth allowedRoles={['ADMIN','USER']}/>}>
@@ -54,7 +55,7 @@ function App() {
          <Route path='/checkout/success' element={<CheckoutSuccess/>}></Route>
          <Route path='/checkout/fail' element={<CheckoutFail/>}></Route>
          <Route path='/course/displaylectures' element={<DisplayLectures/>}></Route>
-         <Route path='/course/addlecture' element={<AddLecture/>}></Route>
+         
        </Route>
        
        <Route path='*' element={<NotFound/>}></Route>

@@ -7,7 +7,8 @@ import HomeLayout from "../../Layouts/HomeLayout";
 import { addCourseLecture } from "../../Redux/Slices/LectureSlice";
 
 function AddLecture(){
-  const state = useLocation();
+  const {state} = useLocation();
+  console.log('State we are getting',state);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
