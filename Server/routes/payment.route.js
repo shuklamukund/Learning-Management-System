@@ -6,7 +6,7 @@ const router=Router();
 
 router
 .route('/razorpay-key')
-.get(isLoggedIn,authorizeSubscribers,getRazorpayApiKey);
+.get(isLoggedIn,getRazorpayApiKey);
 
 router
 .route('/subscribe')

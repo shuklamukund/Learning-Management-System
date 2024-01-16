@@ -1,8 +1,11 @@
 import AppError from "../utils/error.util.js";
 import {razorpay} from '../server.js';
 import crypto from 'crypto';
+import User from "../models/user.model.js";
+import Payment from "../models/payment.model.js";
 
 const getRazorpayApiKey=async(req,res,next)=>{
+  console.log('key>>',process.env.RAZORPAY_KEY_ID);
     res.status(200).json({
         success: true,
         message: 'Razorpay API key',
@@ -34,6 +37,7 @@ const buySubscription=async(req,res,next)=>{
   });
 
   // Adding the ID and the status to the user account
+  console.log('subscription>',subscription);
   user.subscription.id = subscription.id;
   user.subscription.status = subscription.status;
 
