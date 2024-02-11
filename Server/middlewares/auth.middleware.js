@@ -1,6 +1,9 @@
 import User from "../models/user.model.js";
 import AppError from "../utils/error.util.js";
 import jwt from 'jsonwebtoken';
+import {nanoid} from 'nanoid';
+
+
 
 const isLoggedIn=async(req,res,next)=>{
     const {token}=req.cookies;
@@ -24,7 +27,33 @@ console.log('req.user>after',req.user);
   // Do not forget to call the next other wise the flow of execution will not be passed further
   next();
 };
+
+//sessionId
+const userSession=async(req,res,next)=>{
+  const {token}=req.cookies;
+
+  if(!token){
+    return next();
+  } 
+
+  const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+
+  const sessionId=nanoid();
+  if(!decoded.sessionId || decoded.sessionId==sessionId){
+    next();
+   
+  }else{
+    req.user.sessions=[];
+    return next(new AppError('Session Logged out'),401);
+
+  }
+
+
+}
     
+
+
+
 
 
 // Middleware to check if user is admin or not
@@ -50,6 +79,7 @@ const authorizeSubscribers =async(req,res, next) => {
 }
 export {
   isLoggedIn,
+  userSession,
   authorizeRoles,
   authorizeSubscribers
 };

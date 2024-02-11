@@ -4,6 +4,7 @@ import cloudinary from 'cloudinary';
 import fs from 'fs/promises';
 import sendEmail from "../utils/sendEmail.js";
 import crypto from 'crypto';
+import { nanoid } from "nanoid";
 
 const cookieOptions = {
     secure:true,
@@ -109,12 +110,16 @@ const login=async (req,res,next)=>{
   const user = await User.findOne({ email }).select('+password');
 
   // If no user or sent password do not match then send generic response
-  if (!(user || (await user.comparePassword(password)))) {
+  if ((!user || !(await user.comparePassword(password)))) {
     return next(
       new AppError('Email or Password do not match or user does not exist', 401)
     );
   }
 
+ const sessionId=nanoid();
+ user.sessions.push({sessionId});
+ await user.save();
+  
   // Generating a JWT token
   const token = await user.generateJWTToken();
 

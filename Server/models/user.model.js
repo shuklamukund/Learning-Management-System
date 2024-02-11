@@ -27,6 +27,17 @@ const userSchema=new Schema({
         minlength: [8, 'Password must be at least 8 characters'],
         select: false, // Will not select password upon looking up a document
       },
+      sessions:{
+        type:[
+          {
+            sessionId:{
+              type:String,
+              required:true,
+            },
+          },
+        ],
+        default:[],
+      },
       avatar: {
         public_id: {
           type: String,
@@ -56,13 +67,15 @@ userSchema.pre('save',async function(next){
   if (!this.isModified('password')) return next();
 
   this.password = await bcrypt.hash(this.password, 10);
+  next();
 })
 
 userSchema.methods={
       // Will generate a JWT token with user id as payload
   generateJWTToken: async function () {
     return await jwt.sign(
-      { id: this._id, email:this.email, subscription: this.subscription,role:this.role 
+      { id: this._id, email:this.email, subscription: this.subscription,role:this.role ,
+        sessionId:this.sessions,
       },
       process.env.JWT_SECRET,
       {
